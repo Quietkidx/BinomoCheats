@@ -3,59 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
+    <title>Guess the Number</title>
     <style>
-        .calculator {
-            width: 300px;
-            margin: 0 auto;
-            border: 1px solid #ccc;
-            padding: 10px;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
         }
-        input[type="button"] {
+        #guessInput {
             width: 50px;
-            height: 50px;
-            margin: 5px;
-            font-size: 18px;
+        }
+        #feedback {
+            margin-top: 10px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="calculator">
-        <input type="text" id="display" disabled>
-        <br>
-        <input type="button" value="1" onclick="appendToDisplay('1')">
-        <input type="button" value="2" onclick="appendToDisplay('2')">
-        <input type="button" value="3" onclick="appendToDisplay('3')">
-        <input type="button" value="+" onclick="appendToDisplay('+')">
-        <br>
-        <input type="button" value="4" onclick="appendToDisplay('4')">
-        <input type="button" value="5" onclick="appendToDisplay('5')">
-        <input type="button" value="6" onclick="appendToDisplay('6')">
-        <input type="button" value="-" onclick="appendToDisplay('-')">
-        <br>
-        <input type="button" value="7" onclick="appendToDisplay('7')">
-        <input type="button" value="8" onclick="appendToDisplay('8')">
-        <input type="button" value="9" onclick="appendToDisplay('9')">
-        <input type="button" value="*" onclick="appendToDisplay('*')">
-        <br>
-        <input type="button" value="0" onclick="appendToDisplay('0')">
-        <input type="button" value="C" onclick="clearDisplay()">
-        <input type="button" value="=" onclick="calculate()">
-        <input type="button" value="/" onclick="appendToDisplay('/')">
-    </div>
+    <h1>Guess the Number</h1>
+    <p>I'm thinking of a number between 1 and 100.</p>
+    <p>Try to guess it!</p>
+    <input type="text" id="guessInput">
+    <button onclick="checkGuess()">Guess</button>
+    <div id="feedback"></div>
+
     <script>
-        function appendToDisplay(value) {
-            document.getElementById("display").value += value;
-        }
-        
-        function clearDisplay() {
-            document.getElementById("display").value = "";
-        }
-        
-        function calculate() {
-            var expression = document.getElementById("display").value;
-            var result = eval(expression);
-            document.getElementById("display").value = result;
+        // Generate a random number between 1 and 100
+        var secretNumber = Math.floor(Math.random() * 100) + 1;
+
+        function checkGuess() {
+            var guess = parseInt(document.getElementById("guessInput").value);
+            var feedback = document.getElementById("feedback");
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                feedback.textContent = "Please enter a valid number between 1 and 100.";
+            } else if (guess === secretNumber) {
+                feedback.textContent = "Congratulations! You guessed the number!";
+                feedback.style.color = "green";
+                document.getElementById("guessInput").disabled = true;
+            } else if (guess < secretNumber) {
+                feedback.textContent = "Too low! Try again.";
+                feedback.style.color = "blue";
+            } else {
+                feedback.textContent = "Too high! Try again.";
+                feedback.style.color = "red";
+            }
         }
     </script>
 </body>
