@@ -3,73 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A1 the legend</title>
+    <title>Calculator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
         }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-        }
-        nav {
-            background-color: #444;
-            color: #fff;
-            padding: 0.5em;
-            text-align: center;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 1em;
-        }
-        article {
-            padding: 1em;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 1em;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        input[type="button"] {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Welcome to My Blog</h1>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-</nav>
-
-<article>
-    <h2>Blog Post Title</h2>
-    <p>Known by multiple usernames across multiple gamingplatforms.</p>
-</article>
-
-<footer>
-    <p>&copy; 2024 My Blog. All rights reserved.</p>
-</footer>
-
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <br>
+        <input type="button" value="1" onclick="appendToDisplay('1')">
+        <input type="button" value="2" onclick="appendToDisplay('2')">
+        <input type="button" value="3" onclick="appendToDisplay('3')">
+        <input type="button" value="+" onclick="appendToDisplay('+')">
+        <br>
+        <input type="button" value="4" onclick="appendToDisplay('4')">
+        <input type="button" value="5" onclick="appendToDisplay('5')">
+        <input type="button" value="6" onclick="appendToDisplay('6')">
+        <input type="button" value="-" onclick="appendToDisplay('-')">
+        <br>
+        <input type="button" value="7" onclick="appendToDisplay('7')">
+        <input type="button" value="8" onclick="appendToDisplay('8')">
+        <input type="button" value="9" onclick="appendToDisplay('9')">
+        <input type="button" value="*" onclick="appendToDisplay('*')">
+        <br>
+        <input type="button" value="0" onclick="appendToDisplay('0')">
+        <input type="button" value="C" onclick="clearDisplay()">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="/" onclick="appendToDisplay('/')">
+    </div>
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById("display").value += value;
+        }
+        
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+        
+        function calculate() {
+            var expression = document.getElementById("display").value;
+            var result = eval(expression);
+            document.getElementById("display").value = result;
+        }
+    </script>
 </body>
 </html>
