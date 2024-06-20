@@ -8,34 +8,40 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
-            background: linear-gradient(to bottom, black, grey);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(to bottom, #333, #777);
             color: white;
         }
         #forecast {
-            font-size: 2em;
+            font-size: 2.5em;
             margin: 20px;
         }
         .up {
-            color: green;
+            color: limegreen;
         }
         .down {
             color: red;
         }
         button {
-            font-size: 1em;
-            padding: 10px 20px;
+            font-size: 1.2em;
+            padding: 15px 25px;
             cursor: pointer;
             background-color: #444;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
         button:hover {
             background-color: #555;
         }
         #timer {
-            font-size: 1.2em;
+            font-size: 1.5em;
             margin-top: 20px;
             color: lightblue;
         }
@@ -45,22 +51,14 @@
 
         function getRandomForecast() {
             const randomValue = Math.random();
-            if (randomValue < 0.5) {
-                return "DOWN";
-            } else {
-                return "UP";
-            }
+            return randomValue < 0.5 ? "DOWN" : "UP";
         }
 
         function displayForecast() {
             const forecast = getRandomForecast();
             const forecastElement = document.getElementById('forecast');
             forecastElement.textContent = forecast;
-            if (forecast === "UP") {
-                forecastElement.className = 'up';
-            } else {
-                forecastElement.className = 'down';
-            }
+            forecastElement.className = forecast === "UP" ? 'up' : 'down';
             startTimer();
         }
 
@@ -82,7 +80,8 @@
         }
 
         function buttonClickHandler() {
-            if (!timerInterval || !document.getElementById('timer').textContent.includes('Next signal available')) {
+            const timerElement = document.getElementById('timer');
+            if (!timerInterval || !timerElement.textContent.includes('Next signal available')) {
                 displayForecast();
             }
         }
