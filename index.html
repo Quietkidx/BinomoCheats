@@ -3,51 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Number</title>
+    <title>Random Forecast</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin-top: 50px;
         }
-        #guessInput {
-            width: 50px;
+        #forecast {
+            font-size: 2em;
+            margin: 20px;
         }
-        #feedback {
-            margin-top: 10px;
-            font-weight: bold;
+        .up {
+            color: green;
+        }
+        .down {
+            color: red;
+        }
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #timer {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: blue;
         }
     </style>
-</head>
-<body>
-    <h1>Guess the Number</h1>
-    <p>I'm thinking of a number between 1 and 100.</p>
-    <p>Try to guess it!</p>
-    <input type="text" id="guessInput">
-    <button onclick="checkGuess()">Guess</button>
-    <div id="feedback"></div>
-
     <script>
-        // Generate a random number between 1 and 100
-        var secretNumber = Math.floor(Math.random() * 100) + 1;
+        let timerInterval;
 
-        function checkGuess() {
-            var guess = parseInt(document.getElementById("guessInput").value);
-            var feedback = document.getElementById("feedback");
-
-            if (isNaN(guess) || guess < 1 || guess > 100) {
-                feedback.textContent = "Please enter a valid number between 1 and 100.";
-            } else if (guess === secretNumber) {
-                feedback.textContent = "Congratulations! You guessed the number!";
-                feedback.style.color = "green";
-                document.getElementById("guessInput").disabled = true;
-            } else if (guess < secretNumber) {
-                feedback.textContent = "Too low! Try again.";
-                feedback.style.color = "blue";
+        function getRandomForecast() {
+            const randomValue = Math.random();
+            if (randomValue < 0.5) {
+                return "DOWN";
             } else {
-                feedback.textContent = "Too high! Try again.";
-                feedback.style.color = "red";
+                return "UP";
+            }
+        }
+
+        function displayForecast() {
+            const forecast = getRandomForecast();
+            const forecastElement = document.getElementById('forecast');
+            forecastElement.textContent = forecast;
+            if (forecast === "UP") {
+                forecastElement.className = 'up';
+            } else {
+                forecastElement.className = 'down';
+            }
+            startTimer();
+        }
+
+        function startTimer() {
+            let timeLeft = 60;
+            const timerElement = document.getElementById('timer');
+            timerElement.textContent = `Next signal available in ${timeLeft} seconds`;
+
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft -= 1;
+                timerElement.textContent = `Next signal available in ${timeLeft} seconds`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = "Press the button to get future signals!";
+                }
+            }, 1000);
+        }
+
+        function buttonClickHandler() {
+            if (!timerInterval || !document.getElementById('timer').textContent.includes('Next signal available')) {
+                displayForecast();
             }
         }
     </script>
+</head>
+<body>
+    <h1>CryptoIDX Signals</h1>
+    <div id="forecast">Press the button to get future signals!</div>
+    <button onclick="buttonClickHandler()">Get Signals</button>
+    <div id="timer">Press the button to get future signals!</div>
 </body>
 </html>
