@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Forecast</title>
+    <title>CryptoIDX Signals Binomo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,28 +14,29 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(to bottom, #333, #777);
-            color: white;
+            background: linear-gradient(to bottom, #1a1a1a, #4a4a4a);
+            color: #f0f0f0;
         }
         #forecast {
             font-size: 2.5em;
             margin: 20px;
         }
         .up {
-            color: limegreen;
+            color: #00ff00; /* Bright green for better visibility */
         }
         .down {
-            color: red;
+            color: #ff0000; /* Bright red for better visibility */
         }
         button {
             font-size: 1.2em;
             padding: 15px 25px;
             cursor: pointer;
-            background-color: #444;
-            color: white;
+            background-color: #333;
+            color: #f0f0f0;
             border: none;
             border-radius: 10px;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
             background-color: #555;
@@ -43,7 +44,13 @@
         #timer {
             font-size: 1.5em;
             margin-top: 20px;
-            color: lightblue;
+            color: #00bfff; /* Light blue for better visibility */
+        }
+        #loading {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #ffff00; /* Bright yellow for better visibility */
         }
     </style>
     <script>
@@ -55,11 +62,23 @@
         }
 
         function displayForecast() {
-            const forecast = getRandomForecast();
             const forecastElement = document.getElementById('forecast');
-            forecastElement.textContent = forecast;
-            forecastElement.className = forecast === "UP" ? 'up' : 'down';
-            startTimer();
+            const loadingElement = document.getElementById('loading');
+
+            // Show loading sign
+            loadingElement.style.display = 'block';
+            forecastElement.textContent = '';
+
+            setTimeout(() => {
+                const forecast = getRandomForecast();
+                forecastElement.textContent = forecast;
+                forecastElement.className = forecast === "UP" ? 'up' : 'down';
+                
+                // Hide loading sign
+                loadingElement.style.display = 'none';
+                
+                startTimer();
+            }, 800); // Delay of 0.8 seconds
         }
 
         function startTimer() {
@@ -92,5 +111,6 @@
     <div id="forecast">Press the button to get future signals!</div>
     <button onclick="buttonClickHandler()">Get Signals</button>
     <div id="timer">Press the button to get future signals!</div>
+    <div id="loading">Loading...</div>
 </body>
 </html>
