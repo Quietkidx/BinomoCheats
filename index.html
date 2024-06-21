@@ -18,7 +18,7 @@
             color: #333333;
         }
         #forecast {
-            font-size: 2.5em;
+            font-size: 1.8em; /* Reduced from 2.5em */
             margin: 20px;
         }
         .up {
@@ -28,8 +28,8 @@
             color: #cc0000; /* Dark red for better visibility */
         }
         button {
-            font-size: 1.2em;
-            padding: 15px 25px;
+            font-size: 1em; /* Reduced from 1.2em */
+            padding: 10px 20px; /* Adjusted padding for balance */
             cursor: pointer;
             background-color: #555555;
             color: #ffffff;
@@ -42,19 +42,28 @@
             background-color: #777777;
         }
         #timer {
-            font-size: 1.5em;
+            font-size: 1.2em; /* Reduced from 1.5em */
             margin-top: 20px;
             color: #333333; /* Dark grey for better visibility */
         }
         #loading {
             display: none;
-            font-size: 1.5em;
+            font-size: 1.2em; /* Reduced from 1.5em */
             margin-top: 20px;
             color: #333333; /* Dark grey for better visibility */
+        }
+        #header-select, #timer-select {
+            font-size: 1em; /* Reduced from 1.2em */
+            padding: 8px; /* Adjusted padding for balance */
+            margin-top: 20px;
+            background: linear-gradient(to bottom, #eeeeee, #cccccc); /* Match background */
+            border: 1px solid #cccccc;
+            border-radius: 5px;
         }
     </style>
     <script>
         let timerInterval;
+        let timerDuration = 60; // Default to 1 minute
 
         function getRandomForecast() {
             const randomValue = Math.random();
@@ -82,7 +91,7 @@
         }
 
         function startTimer() {
-            let timeLeft = 60;
+            let timeLeft = timerDuration;
             const timerElement = document.getElementById('timer');
             timerElement.textContent = `Next signal available in ${timeLeft} seconds`;
 
@@ -104,10 +113,36 @@
                 displayForecast();
             }
         }
+
+        function updateHeader() {
+            const headerSelect = document.getElementById('header-select');
+            const header = document.getElementById('header');
+            header.textContent = headerSelect.value;
+        }
+
+        function updateTimerDuration() {
+            const timerSelect = document.getElementById('timer-select');
+            timerDuration = parseInt(timerSelect.value) * 60; // Convert minutes to seconds
+        }
     </script>
 </head>
 <body>
-    <h1>CryptoIDX Signals</h1>
+    <h1 id="header">Crypto IDX Signals</h1>
+    <select id="header-select" onchange="updateHeader()">
+        <option value="Crypto IDX Signals">Crypto IDX Signals</option>
+        <option value="AUD/CAD Signals">AUD/CAD Signals</option>
+        <option value="AUD/USD Signals">AUD/USD Signals</option>
+        <option value="AUD/JPY Signals">AUD/JPY Signals</option>
+        <option value="EUR/USD Signals">EUR/USD Signals</option>
+        <option value="Altcoin IDX Signals">Altcoin IDX Signals</option>
+    </select>
+    <select id="timer-select" onchange="updateTimerDuration()">
+        <option value="1">1 minute timer</option>
+        <option value="2">2 minutes timer</option>
+        <option value="3">3 minutes timer</option>
+        <option value="4">4 minutes timer</option>
+        <option value="5">5 minutes timer</option>
+    </select>
     <div id="forecast">Press the button to get future signals!</div>
     <button onclick="buttonClickHandler()">Get Signals</button>
     <div id="timer">Press the button to get future signals!</div>
