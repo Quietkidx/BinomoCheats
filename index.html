@@ -35,8 +35,9 @@
             color: #ffffff;
             border: none;
             border-radius: 10px;
-            margin-top: 20px;
+            margin: 20px auto; /* Center the button horizontally */
             transition: background-color 0.3s ease;
+            width: 150px; /* Set a specific width */
         }
         button:hover {
             background-color: #777777;
@@ -55,10 +56,16 @@
         #header-select, #timer-select {
             font-size: 1em; /* Reduced from 1.2em */
             padding: 8px; /* Adjusted padding for balance */
-            margin-top: 20px;
+            margin: 20px auto; /* Center the selects horizontally */
             background: linear-gradient(to bottom, #eeeeee, #cccccc); /* Match background */
             border: 1px solid #cccccc;
-            border-radius: 5px;
+            border-radius: 10px; /* Smooth rounded corners */
+            width: 150px; /* Set a specific width */
+            display: block; /* Make sure it takes the margin auto */
+        }
+        #logo {
+            width: 100px; /* Adjust the width as needed */
+            margin: 20px auto; /* Center the image horizontally */
         }
     </style>
     <script>
@@ -127,6 +134,7 @@
     </script>
 </head>
 <body>
+    <img id="logo" src="images/T.png" alt="Logo">
     <h1 id="header">Crypto IDX Signals</h1>
     <select id="header-select" onchange="updateHeader()">
         <option value="Crypto IDX Signals">Crypto IDX </option>
